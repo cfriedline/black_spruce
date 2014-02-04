@@ -1,2 +1,2 @@
 [filter "nbstrip"]
-    clean = "nbstripout"
+    clean = "~/bin/nbstripout"
