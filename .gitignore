@@ -2,3 +2,6 @@
 BSC*
 im*
 .ipynb_checkpoints
+*.fa*
+*.qual
+
