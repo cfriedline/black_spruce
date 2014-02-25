@@ -4,4 +4,6 @@ im*
 .ipynb_checkpoints
 *.fa*
 *.qual
+seqclean
+*.pkl
 
