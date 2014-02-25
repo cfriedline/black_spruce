@@ -6,4 +6,6 @@ im*
 *.qual
 seqclean
 *.pkl
+.texpadtmp
+*.pdf
 
