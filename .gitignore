@@ -8,4 +8,4 @@ seqclean
 *.pkl
 .texpadtmp
 *.pdf
-
+*.xml
