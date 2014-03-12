@@ -10,3 +10,5 @@ seqclean
 *.pdf
 *.xml
 *.rtf
+
+*.dat
