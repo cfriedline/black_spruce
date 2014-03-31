@@ -10,5 +10,6 @@ seqclean
 *.pdf
 *.xml
 *.rtf
-
 *.dat
+interpro
+*.txt
