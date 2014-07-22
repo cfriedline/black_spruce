@@ -1,0 +1,88 @@
+\documentclass[11pt]{article}
+\pdfoutput=1
+\usepackage{simplemargins}
+\usepackage{url}
+\usepackage[pdftex]{graphicx}
+\usepackage{setspace}
+\graphicspath{{figures/}}
+\usepackage{siunitx}
+\setlength{\parindent}{0pt} 
+\setlength{\parskip}{1.6ex} 
+\setallmargins{1in} 
+\linespread{1.6}
+\usepackage[round]{natbib}
+\usepackage{color}
+\usepackage{subfigure}
+\usepackage{booktabs}
+\usepackage{pdflscape}
+\usepackage[colorlinks=false,breaklinks]{hyperref}
+\listfiles
+
+% make subfigure labels capitalized
+\renewcommand{\thesubfigure}{(\Alph{subfigure})}
+
+%setup supplement
+\newcommand{\beginsupplement}{%
+        \setcounter{table}{0}
+        \renewcommand{\thetable}{S\arabic{table}}
+        \setcounter{figure}{0}
+        \renewcommand{\thefigure}{S\arabic{figure}}
+        \renewcommand{\thesection}{S\arabic{section}}
+        \renewcommand{\thesubsection}{S\arabic{subsection}} 
+     }
+
+\begin{document}
+
+% Title must be 150 characters or less
+\begin{flushleft} 
+\singlespacing
+{\Large \textbf{Title}}
+
+% Insert Author names, affiliations and corresponding author email.
+Author1$^{1}$, 
+Author2$^{2}$,
+
+
+\bf{1} Affil 1
+\\
+\bf{2} Affil 2
+\\
+
+$\ast$ E-mail: corresponding\_author@domain.com
+\end{flushleft}
+
+\section*{Abstract}
+
+\section*{Introduction}
+
+\section*{Materials and Methods}\label{ss:mats}
+
+\section*{Results}
+
+\section*{Discussion}
+
+\section*{Acknowledgements}
+
+\clearpage
+
+\singlespacing
+\bibliographystyle{spbasic}
+\bibliography{refs}
+
+\clearpage
+%tables
+
+\clearpage
+%figures
+
+\clearpage
+
+\beginsupplement
+
+\section*{Supplementary Material}
+
+%put supplementary figures and tables below here
+\subsection*{Supplementary Text}\label{ss:supp}
+
+
+\end{document}
