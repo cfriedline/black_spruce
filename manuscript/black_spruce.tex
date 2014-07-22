@@ -33,29 +33,65 @@
 
 \begin{document}
 
-% Title must be 150 characters or less
+% title must be 150 characters or less
 \begin{flushleft} 
 \singlespacing
-{\Large \textbf{Title}}
+{\large \textbf{title}}
 
-% Insert Author names, affiliations and corresponding author email.
-Author1$^{1}$, 
-Author2$^{2}$,
+% insert author names, affiliations and corresponding author email.
+author1$^{1}$, 
+author2$^{2}$,
 
 
-\bf{1} Affil 1
+\bf{1} affil 1
 \\
-\bf{2} Affil 2
+\bf{2} affil 2
 \\
 
-$\ast$ E-mail: corresponding\_author@domain.com
+$\ast$ e-mail: corresponding\_author@domain.com
 \end{flushleft}
 
 \section*{Abstract}
 
 \section*{Introduction}
 
-\section*{Materials and Methods}\label{ss:mats}
+\section*{Materials and methods}\label{ss:mats}
+A total of 7232 files chromatogram files from two sets of replicate
+samples, two each for needle and cambium were processed using an
+IPython \citep[v 2.1]{per-gra:2007} notebook and various utilities.
+The chromatograms were processed using Phred \citep[v.\
+020425]{ewing1998b} into fasta sequences with a trimming cutoff of
+0.01, and sequences which were less than 100 bases long were excluded.
+The ESTs were combined into single files according to tissue source
+and replicate name (e.g., P32C, P32N, P40C, P40N).  Each of these
+combined files were processed using SeqClean \citep[v.\
+2/2011][default parameters]{citeulike:1911083}, screening both for
+vectors using the UniVec \citep{cochrane01012010} database and
+contamination from \textit{E. coli} K-12 substr.\ DH10B.  The cleaned
+and trimmed ESTs were assembled into unigenes using iAssembler
+\citep[v.\ 1.3.2][default parameters]{zheng2011iassembler} for each library.
+
+The assembled unigenes were aligned to a local copy of the nr database
+(downloaded in February 2014) with BLASTX \citep{citeulike:238188}
+keeping, at most, the top 10 hits with an e-value cutoff of
+$e^{-5}$. The resulting alignment xml files were filtered using
+BioPython \citep[v.\ 1.6.4]{citeulike:4202607} to include all hits
+which were at least 50\% of the unigene length and identity.  These
+filtered BLAST results were imported into Blast2GO Pro \citep[v.\
+2.7.2, bg2\_may14]{citeulike:2733895} for functional annotation.
+Annotations were assigned using default parameters for the annotation
+step (e-value: $e^{-6}$, annotation cutoff: 55, go weight: 5, HSP-hit
+coverage cutoff: 0, taxonomy filtering: none) and evidence code
+weights. The full suite of InterPro \citep{citeulike:12942060}
+mappings were performed for each unigene with a valid BLAST result and
+these results were merged with the GO annotations.  These annotations
+were augmented with ANNEX \citep{annex} and mapped to enzyme codes and
+KEGG \citep{citeulike:9172127} pathways. GO term encrichment for both
+needle and cambium was tested directionally using Fisher's exact test
+as implemented in Blast2GO.  Terms were considered to be significantly
+enriched if the $p$-value of the test statistic was $<0.05$ while
+controlling for False Discovery Rate
+\citep[FDR,][]{benjamini1995controlling}.
 
 \section*{Results}
 
@@ -79,7 +115,7 @@ $\ast$ E-mail: corresponding\_author@domain.com
 
 \beginsupplement
 
-\section*{Supplementary Material}
+\section*{Supplementary material}
 
 %put supplementary figures and tables below here
 \subsection*{Supplementary Text}\label{ss:supp}
