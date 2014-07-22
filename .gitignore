@@ -13,3 +13,4 @@ seqclean
 *.dat
 interpro
 *.txt
+*.annot
