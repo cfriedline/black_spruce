@@ -28,7 +28,8 @@ for (i in 1:length(interesting)) {
              ontology = "MF", 
              allGenes = gene_list, 
              annot = annFUN.gene2GO, 
-             gene2GO = gene_id_2go)
+             gene2GO = gene_id_2go,
+             nodeSize=5)
     godata[[i]] = GOdata
 }
-
+print(godata[[1]])
