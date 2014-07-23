@@ -1,8 +1,6 @@
 library(edgeR)
 f = "~/projects/black_spruce/seqclean/all_ests.fa.clean_output/contig_member.counts"
 counts = read.table(f, header=T, row.names=1)
-#counts = counts[sort(colnames(counts))]
-# counts = counts[c("P32N", "P40N", "P32C", "P40C")]
 tissue = factor()
 parent = factor()
 for (k in 1:ncol(counts)) {
