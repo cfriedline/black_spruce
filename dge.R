@@ -19,6 +19,8 @@ for (k in 1:ncol(counts)) {
         tissue = c(tissue, "cambium")
     }
 }
+tissue = as.factor(tissue)
+parent = as.factor(parent)
 env = data.frame(row.names=colnames(counts), 
                     tissue=tissue,
                     parent=parent)
