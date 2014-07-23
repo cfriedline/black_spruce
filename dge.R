@@ -1,0 +1,11 @@
+f = "~/projects/black_spruce/seqclean/all_ests.fa.clean_output/contig_member.counts"
+counts = read.table(f, header=T, row.names=1)
+design = data.frame(row.names=colnames(counts), tissue=c("cambium", "cambium", "needle", "needle"))
+y <- DGEList(counts=counts, group=design$tissue)
+y <- calcNormFactors(y, method="RLE")
+y <- estimateCommonDisp(y, verbose=T)
+y <- estimateTagwiseDisp(y, verbose=T)
+et <- exactTest(y)
+print(head(counts))
+print(design)
+print(topTags(et))
