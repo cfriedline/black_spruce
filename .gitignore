@@ -16,3 +16,4 @@ interpro
 *.annot
 *.gz
 *.counts
+*.csv
