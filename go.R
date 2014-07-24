@@ -18,18 +18,21 @@ interesting = list()
 interesting$cambium = cambium_interesting
 interesting$needle = needle_interesting
 godata = list()
-for (i in 1:length(interesting)) {
-    interest = interesting[[i]]
-    gene_list <- factor(as.integer(gene_names %in% names(interest)))
-    names(gene_list) <- gene_names
-
-    GOdata = new("topGOdata",
-             description=names(interesting)[i],
-             ontology = "MF", 
-             allGenes = gene_list, 
-             annot = annFUN.gene2GO, 
-             gene2GO = gene_id_2go,
-             nodeSize=5)
-    godata[[i]] = GOdata
+onts = c("BP","CC", "MF")
+for (i in 1:length(onts)) {
+    for (j in 1:length(interesting)) {
+        interest = interesting[[j]]
+        gene_list <- factor(as.integer(gene_names %in% names(interest)))
+        names(gene_list) <- gene_names
+        
+        GOdata = new("topGOdata",
+                     description=paste(names(interesting)[j], onts[i], sep="/"),
+                     ontology = onts[i], 
+                     allGenes = gene_list, 
+                     annot = annFUN.gene2GO, 
+                     gene2GO = gene_id_2go,
+                     nodeSize=5)
+        godata[[i]] = GOdata
+    }    
 }
-print(godata[[1]])
+
