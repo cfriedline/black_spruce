@@ -18,3 +18,4 @@ interpro
 *.counts
 *.csv
 *.Rproj*
+.Rproj.user
