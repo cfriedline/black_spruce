@@ -19,3 +19,5 @@ interpro
 *.csv
 *.Rproj*
 .Rproj.user
+.RData
+.Rhistory
