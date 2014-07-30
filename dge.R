@@ -24,8 +24,10 @@ env = data.frame(row.names=colnames(counts),
                     tissue=tissue,
                     parent=parent)
 DENameList = list()
+level_names = list()
 for (i in 1:length(levels(tissue))) {
     ref = levels(tissue)[i]
+    level_names = append(level_names, ref)
     tissue = relevel(tissue, ref=ref)
     design = model.matrix(~tissue+parent)
     rownames(design)=colnames(counts)
@@ -48,6 +50,7 @@ for (i in 1:length(levels(tissue))) {
     DENameList[[i]] = DEnames
     write.csv(tt[DEnames,], file=sprintf("~/projects/black_spruce/toptags_%s.csv",ref))
 }
+names(DENameList) = level_names
 DEunion = union(DENameList[[1]], DENameList[[2]])
 DEintersect = intersect(DENameList[[1]], DENameList[[2]])
 DEdiff = setdiff(DENameList[[1]], DENameList[[2]])
