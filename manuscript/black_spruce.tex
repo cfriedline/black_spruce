@@ -15,6 +15,7 @@
 \usepackage{subfigure}
 \usepackage{booktabs}
 \usepackage{pdflscape}
+\usepackage{tabularx}
 \usepackage[colorlinks=false,breaklinks]{hyperref}
 \listfiles
 
@@ -56,27 +57,30 @@ $\ast$ e-mail: corresponding\_author@domain.com
 \section*{Introduction}
 
 \section*{Materials and methods}\label{ss:mats}
-A total of 7232 files chromatogram files from two sets of replicate
+A total of 7232 chromatogram files from two sets of replicate
 samples, two each for needle and cambium were processed using an
 IPython \citep[v 2.1]{per-gra:2007} notebook and various utilities.
 The chromatograms were processed using Phred \citep[v.\
-020425]{ewing1998b} into fasta sequences with a trimming cutoff of
-0.01, and sequences which were less than 100 bases long were excluded.
-The ESTs were combined into single files according to tissue source
-and replicate name (e.g., P32C, P32N, P40C, P40N).  Each of these
-combined files were processed using SeqClean \citep[v.\
-2/2011][default parameters]{citeulike:1911083}, screening both for
-vectors using the UniVec \citep{cochrane01012010} database and
-contamination from \textit{E. coli} K-12 substr.\ DH10B.  The cleaned
-and trimmed ESTs were assembled into unigenes using iAssembler
-\citep[v.\ 1.3.2][default parameters]{zheng2011iassembler} for each library.
+020425]{ewing1998b} into fasta sequences with a trimming cutoff
+probability of 0.01 (e.g., Phred score = 20), and sequences which were
+less than 100 bases long were excluded.  The ESTs were combined in
+multiple ways to facilitate analysis: single files according to tissue
+source and replicate name (e.g., P32C, P32N, P40C, P40N), by tissue
+source (e.g, cambium and needle), and into single file (where all
+sequence names indicated the source and replicate).  Each of these
+combined files was processed using SeqClean \citep[v.\ 2/2011][default
+parameters]{citeulike:1911083}, screening both for vectors using the
+UniVec \citep{cochrane01012010} database and contamination from
+\textit{E. coli} K-12 substr.\ DH10B.  The cleaned and trimmed ESTs
+were in each case were assembled into unigenes using iAssembler
+\citep[v.\ 1.3.2][default parameters]{zheng2011iassembler}.
 
 The assembled unigenes were aligned to a local copy of the nr database
 (downloaded in February 2014) with BLASTX \citep{citeulike:238188}
 keeping, at most, the top 10 hits with an e-value cutoff of
 $e^{-5}$. The resulting alignment xml files were filtered using
 BioPython \citep[v.\ 1.6.4]{citeulike:4202607} to include all hits
-which were at least 50\% of the unigene length and identity.  These
+which were at least 50\% of both unigene length and identity. These
 filtered BLAST results were imported into Blast2GO Pro \citep[v.\
 2.7.2, bg2\_may14]{citeulike:2733895} for functional annotation.
 Annotations were assigned using default parameters for the annotation
@@ -86,17 +90,110 @@ weights. The full suite of InterPro \citep{citeulike:12942060}
 mappings were performed for each unigene with a valid BLAST result and
 these results were merged with the GO annotations.  These annotations
 were augmented with ANNEX \citep{annex} and mapped to enzyme codes and
-KEGG \citep{citeulike:9172127} pathways. GO term encrichment for both
-needle and cambium was tested directionally using Fisher's exact test
-as implemented in Blast2GO.  Terms were considered to be significantly
-enriched if the $p$-value of the test statistic was $<0.05$ while
-controlling for False Discovery Rate
-\citep[FDR,][]{benjamini1995controlling}.
+KEGG \citep{citeulike:9172127} pathways. The resulting GO annotations 
+were then exported to a text file for further analysis.
 
-All relevant code for both the analysis and manuscript can be found at 
+Differential gene (unigene) expression (DGE) was computed in R
+\citep[v. 3.1.1]{R} using RSEM
+\citep[v. 1.2.15]{Li:BmcBioinformatics:2011} in the standard way using
+bowtie \citep[v. 2.2.3]{Langmead:NatMethods:2012} by first creating a
+reference (\texttt{rsem-prepare-reference}) and then the computing the
+expression on both a parent-wise and tissue-wise basis
+(\texttt{rsem-calculate-expression}). Models were evaluated using
+\texttt{rsem-plot-model} and the parent-wise gene results were
+combined for further analysis
+(\texttt{rsem-generate-data-matrix}). The resulting data matrix was
+used in an EBSeq \citep{Leng:Bioinformatics:2013} pipeline to compute
+differential gene expression (50 rounds, accounting for differences in
+library size using median normalization), considering all unigenes
+($Qtrm=1$) to which at least five cleaned ESTs mapped
+($QtrmCut=5$). Mulitiple testing was controlled by FDR
+\citep{benjamini1995controlling} at 0.05 using
+\texttt{rsem-control-fdr}.  The count matrix used for DGE, in concert
+with the exported annotations from Blast2GO was also used to compute
+GO enrichment for each ontology (i.e., BP, CC, MF), using topGO
+\citep{topgo}, by tissue type, for nodes in the GO ontologies containing 
+at least 5 genes.  Tests for enrichment in GO were computed using 
+Fisher's exact test.
+
+All relevant code for both the analysis and manuscript can be found at
 \url{http://www.github.com/cfriedline/black_spruce}
 
 \section*{Results}
+
+A total of 7232 chromatogram files were obtained from sequencing for
+two biological replicates (e.g., P32, P40) for two tissue types:
+needle and cambium.  Following processing with Phred and filtering by
+length, 5996 raw ESTs were combined into a single file for downstream
+analysis.  After processing with Seqclean, 5938 ESTs remained; 2842
+were trimmed and 58 were removed from the dataset, either by mapping
+to \textit{E. coli} (34), low complexity (1), or length/shortq (23).
+Assembly resulted in 1945 unigenes with an average coverage of
+$\approx{3}$ ESTs ($\pm \approx{10}, range=[1,274]$). After mapping 
+with Blast2GO, 1061 unigenes had some level of associated GO annotations, 
+ranging from 1 to 62 ($mean \approx{5} \pm \approx{5}$).
+
+DGE was evaluated for 169 unigenes (transcripts) and 35 of these were
+reported as significant at $FDR = 0.05$ (Table \ref{tab:dge_go}). As an additional check,
+convergence of the EBTest procedure was confirmed by examining the
+parameters Alpha, Beta, and P individually These values converged at
+33, 32, and 32 generations, respectively, providing confidence in the
+estimates for differential expression.
+
+Of the 1061 unigenes with GO annotations, 848 were usable by the 
+topGO enrichment tests, and these results are summarized in Table \ref{tab:dge}.  
+
+
+\begin{table}[t]
+\centering
+\begin{tabularx}{\textwidth}{lXcc}
+\toprule
+Unigene & 
+GO terms    & Tissue                                                                                                                                                                          & DGE &   \\ \midrule
+UN0050 & GO:0046872                                                                                                                                                                      & C   & C \\
+UN0084 & GO:0004478, GO:0006555, GO:0009651, GO:0009809, GO:0005618, GO:0005730, GO:0005829, GO:0006730, GO:0046872, GO:0006556, GO:0046686, GO:0009409, GO:0009506, GO:0005886, GO:0005524, GO:0071281 & B   & N \\
+UN0214 & GO:0006950, GO:0009415                                                                                                                                                           & C   & C \\
+UN0225 & GO:0009507                                                                                                                                                                      & B   & N \\
+UN0243 & GO:0016984, GO:0004497, GO:0009853, GO:0055114, GO:0009507, GO:0015979, GO:0015977                                                                                                    & N   & N \\
+UN0268 & GO:0016984, GO:0004497, GO:0009853, GO:0055114, GO:0009507, GO:0015979, GO:0015977                                                                                                    & N   & N \\
+UN0283 & GO:0055114, GO:0008794                                                                                                                                                           & C   & C \\
+UN0285 & GO:0016491, GO:0009055, GO:0000287, GO:0018298, GO:0016168, GO:0051539, GO:0016021, GO:0009522, GO:0015979, GO:0009535, GO:0055114                                                        & N   & N \\
+UN0290 & GO:0009507                                                                                                                                                                      & N   & N \\
+UN0293 & GO:0009507                                                                                                                                                                      & B   & N \\
+UN0306 & GO:0009512                                                                                                                                                                      & B   & N \\
+UN0311 & GO:0055114, GO:0008794                                                                                                                                                           & C   & C \\
+UN0312 & GO:0055114, GO:0008794                                                                                                                                                           & C   & C \\
+UN0326 & GO:0019253, GO:0016984, GO:0004497, GO:0009853, GO:0009507, GO:0055114                                                                                                               & N   & N \\
+UN0328 & GO:0020037, GO:0016705, GO:0005506, GO:0055114                                                                                                                                     & C   & C \\
+UN0340 & GO:0005524, GO:0009570                                                                                                                                                           & N   & N \\
+UN0350 & GO:0006950, GO:0009415                                                                                                                                                           & C   & C \\
+UN0354 & GO:0046872                                                                                                                                                                      & C   & C \\
+UN0357 & GO:0046872                                                                                                                                                                      & C   & C \\
+UN0361 & GO:0016984, GO:0004497, GO:0009853, GO:0055114, GO:0009507, GO:0015979, GO:0015977                                                                                                    & N   & N \\
+UN0362 & GO:0004568, GO:0005975, GO:0006032, GO:0008061, GO:0016998                                                                                                                          & C   & C \\
+UN0638 & GO:0006950, GO:0009415                                                                                                                                                           & C   & C \\ \bottomrule
+\end{tabularx}
+\caption{Unigenes exhibiting differential expression across tissues (C = cambium, N = needle, 
+B = both needle and cambium) and associated GO terms. The Tissue column represents presence of 
+that unigene ($>2$) ESTs in the tissue, and DGE represents the tissue in which the unigene was 
+differentially expressed.}
+\label{tab:dge_go}
+\end{table}
+
+
+\begin{table}[t]
+\centering
+\begin{tabular}{lrrr}
+\toprule
+Tissue  & \multicolumn{3}{c}{Ontology} \\ \cmidrule(l){2-4}
+        & BP       & CC      & MP      \\ \midrule
+Cambium & 143      & 95      & 164     \\
+Needle  & 205      & 186     & 204     \\ \bottomrule
+\end{tabular}
+\caption{Number of GO terms enriched for each tissue for each ontology.}
+\label{tab:dge}
+\end{table}
+
 
 \section*{Discussion}
 
