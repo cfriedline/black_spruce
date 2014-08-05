@@ -35,33 +35,33 @@
 \begin{document}
 
 % title must be 150 characters or less
-\begin{flushleft} 
-\singlespacing
-{\large \textbf{title}}
+% \begin{flushleft} 
+% \singlespacing
+% {\large \textbf{title}}
 
 % insert author names, affiliations and corresponding author email.
-author1$^{1}$, 
-author2$^{2}$,
+% author1$^{1}$, 
+% author2$^{2}$,
 
 
-\bf{1} affil 1
-\\
-\bf{2} affil 2
-\\
+% \bf{1} affil 1
+% \\
+% \bf{2} affil 2
+% \\
 
-$\ast$ e-mail: corresponding\_author@domain.com
-\end{flushleft}
+% $\ast$ e-mail: corresponding\_author@domain.com
+% \end{flushleft}
 
-\section*{Abstract}
+% \section*{Abstract}
 
-\section*{Introduction}
+% \section*{Introduction}
 
 \section*{Materials and methods}\label{ss:mats}
 A total of 7232 chromatogram files from two sets of replicate
 samples, two each for needle and cambium were processed using an
 IPython \citep[v 2.1]{per-gra:2007} notebook and various utilities.
 The chromatograms were processed using Phred \citep[v.\
-020425]{ewing1998b} into fasta sequences with a trimming cutoff
+020425]{ewing1998b} into Fasta sequences with a trimming cutoff
 probability of 0.01 (e.g., Phred score = 20), and sequences which were
 less than 100 bases long were excluded.  The ESTs were combined in
 multiple ways to facilitate analysis: single files according to tissue
@@ -78,7 +78,7 @@ were in each case were assembled into unigenes using iAssembler
 The assembled unigenes were aligned to a local copy of the nr database
 (downloaded in February 2014) with BLASTX \citep{citeulike:238188}
 keeping, at most, the top 10 hits with an e-value cutoff of
-$e^{-5}$. The resulting alignment xml files were filtered using
+$e^{-5}$. The resulting alignment XML files were filtered using
 BioPython \citep[v.\ 1.6.4]{citeulike:4202607} to include all hits
 which were at least 50\% of both unigene length and identity. These
 filtered BLAST results were imported into Blast2GO Pro \citep[v.\
@@ -107,7 +107,7 @@ used in an EBSeq \citep{Leng:Bioinformatics:2013} pipeline to compute
 differential gene expression (50 rounds, accounting for differences in
 library size using median normalization), considering all unigenes
 ($Qtrm=1$) to which at least five cleaned ESTs mapped
-($QtrmCut=5$). Mulitiple testing was controlled by FDR
+($QtrmCut=5$). Multiple testing was controlled by FDR
 \citep{benjamini1995controlling} at 0.05 using
 \texttt{rsem-control-fdr}.  The count matrix used for DGE, in concert
 with the exported annotations from Blast2GO was also used to compute
@@ -147,32 +147,33 @@ topGO enrichment tests, and these results are summarized in Table \ref{tab:dge}.
 \begin{table}[t]
 \centering
 \begin{tabularx}{\textwidth}{lXcc}
-\toprule
-Unigene & 
-GO terms    & Tissue                                                                                                                                                                          & DGE &   \\ \midrule
-UN0050 & GO:0046872                                                                                                                                                                      & C   & C \\
+\toprule 
+Unigene & GO terms & Tissue & DGE \\ \midrule
+UN0050 & GO:0046872 &  C   & C \\
 UN0084 & GO:0004478, GO:0006555, GO:0009651, GO:0009809, GO:0005618, GO:0005730, GO:0005829, GO:0006730, GO:0046872, GO:0006556, GO:0046686, GO:0009409, GO:0009506, GO:0005886, GO:0005524, GO:0071281 & B   & N \\
-UN0214 & GO:0006950, GO:0009415                                                                                                                                                           & C   & C \\
-UN0225 & GO:0009507                                                                                                                                                                      & B   & N \\
-UN0243 & GO:0016984, GO:0004497, GO:0009853, GO:0055114, GO:0009507, GO:0015979, GO:0015977                                                                                                    & N   & N \\
-UN0268 & GO:0016984, GO:0004497, GO:0009853, GO:0055114, GO:0009507, GO:0015979, GO:0015977                                                                                                    & N   & N \\
-UN0283 & GO:0055114, GO:0008794                                                                                                                                                           & C   & C \\
-UN0285 & GO:0016491, GO:0009055, GO:0000287, GO:0018298, GO:0016168, GO:0051539, GO:0016021, GO:0009522, GO:0015979, GO:0009535, GO:0055114                                                        & N   & N \\
-UN0290 & GO:0009507                                                                                                                                                                      & N   & N \\
-UN0293 & GO:0009507                                                                                                                                                                      & B   & N \\
-UN0306 & GO:0009512                                                                                                                                                                      & B   & N \\
-UN0311 & GO:0055114, GO:0008794                                                                                                                                                           & C   & C \\
-UN0312 & GO:0055114, GO:0008794                                                                                                                                                           & C   & C \\
-UN0326 & GO:0019253, GO:0016984, GO:0004497, GO:0009853, GO:0009507, GO:0055114                                                                                                               & N   & N \\
-UN0328 & GO:0020037, GO:0016705, GO:0005506, GO:0055114                                                                                                                                     & C   & C \\
-UN0340 & GO:0005524, GO:0009570                                                                                                                                                           & N   & N \\
-UN0350 & GO:0006950, GO:0009415                                                                                                                                                           & C   & C \\
-UN0354 & GO:0046872                                                                                                                                                                      & C   & C \\
-UN0357 & GO:0046872                                                                                                                                                                      & C   & C \\
-UN0361 & GO:0016984, GO:0004497, GO:0009853, GO:0055114, GO:0009507, GO:0015979, GO:0015977                                                                                                    & N   & N \\
-UN0362 & GO:0004568, GO:0005975, GO:0006032, GO:0008061, GO:0016998                                                                                                                          & C   & C \\
-UN0638 & GO:0006950, GO:0009415                                                                                                                                                           & C   & C \\ \bottomrule
+UN0214 & GO:0006950, GO:0009415 &  C   & C \\
+UN0225 & GO:0009507   &  B   & N \\
+UN0243 & GO:0016984, GO:0004497, GO:0009853, GO:0055114, GO:0009507, GO:0015979, GO:0015977  & N   & N \\
+UN0268 & GO:0016984, GO:0004497, GO:0009853, GO:0055114, GO:0009507, GO:0015979, GO:0015977 & N   & N \\
+UN0283 & GO:0055114, GO:0008794 & C   & C \\
+UN0285 & GO:0016491, GO:0009055, GO:0000287, GO:0018298, GO:0016168, GO:0051539, GO:0016021, GO:0009522, GO:0015979, GO:0009535, GO:0055114  & N   & N \\
+UN0290 & GO:0009507   & N   & N \\
+UN0293 & GO:0009507  & B   & N \\
+UN0306 & GO:0009512 & B   & N \\
+UN0311 & GO:0055114, GO:0008794  & C   & C \\
+UN0312 & GO:0055114, GO:0008794 & C   & C \\
+UN0326 & GO:0019253, GO:0016984, GO:0004497, GO:0009853, GO:0009507, GO:0055114 & N   & N \\
+UN0328 & GO:0020037, GO:0016705, GO:0005506, GO:0055114 & C   & C \\
+UN0340 & GO:0005524, GO:0009570 & N   & N \\
+UN0350 & GO:0006950, GO:0009415 & C   & C \\
+UN0354 & GO:0046872 & C   & C \\
+UN0357 & GO:0046872 &  C   & C \\
+UN0361 & GO:0016984, GO:0004497, GO:0009853, GO:0055114, GO:0009507, GO:0015979, GO:0015977 & N   & N \\
+UN0362 & GO:0004568, GO:0005975, GO:0006032, GO:0008061, GO:0016998 & C   & C \\
+UN0638 & GO:0006950, GO:0009415 & C & C \\ 
+\bottomrule
 \end{tabularx}
+
 \caption{Unigenes exhibiting differential expression across tissues (C = cambium, N = needle, 
 B = both needle and cambium) and associated GO terms. The Tissue column represents presence of 
 that unigene ($>2$) ESTs in the tissue, and DGE represents the tissue in which the unigene was 
@@ -194,10 +195,16 @@ Needle  & 205      & 186     & 204     \\ \bottomrule
 \label{tab:dge}
 \end{table}
 
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\textwidth]{go}
+  \caption{Top 10 Significantly enriched ($p < 0.05$) GO terms for each ontology and tissue type}
+  \label{fig:go}
+\end{figure}
 
-\section*{Discussion}
+% \section*{Discussion}
 
-\section*{Acknowledgements}
+% \section*{Acknowledgements}
 
 \clearpage
 
@@ -205,20 +212,22 @@ Needle  & 205      & 186     & 204     \\ \bottomrule
 \bibliographystyle{spbasic}
 \bibliography{refs}
 
-\clearpage
-%tables
+% \clearpage
+% %tables
 
-\clearpage
-%figures
+% \clearpage
+% %figures
 
-\clearpage
+% \clearpage
 
-\beginsupplement
+% \beginsupplement
 
-\section*{Supplementary material}
+% \section*{Supplementary material}
 
-%put supplementary figures and tables below here
-\subsection*{Supplementary Text}\label{ss:supp}
+% %put supplementary figures and tables below here
+% \subsection*{Supplementary Text}\label{ss:supp}
 
 
 \end{document}
+
+%  LocalWords:  ESTs SeqClean
