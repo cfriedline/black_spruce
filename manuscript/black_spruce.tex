@@ -144,6 +144,19 @@ Of the 1061 unigenes with GO annotations, 848 were usable by the
 topGO enrichment tests, and these results are summarized in Table \ref{tab:dge}.  
 
 
+% \section*{Discussion}
+
+% \section*{Acknowledgements}
+
+\clearpage
+
+\singlespacing
+\bibliographystyle{spbasic}
+\bibliography{refs}
+
+\clearpage
+%tables
+
 \begin{table}[t]
 \centering
 \begin{tabularx}{\textwidth}{lXcc}
@@ -195,28 +208,26 @@ Needle  & 205      & 186     & 204     \\ \bottomrule
 \label{tab:dge}
 \end{table}
 
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=\textwidth]{go}
-  \caption{Top 10 Significantly enriched ($p < 0.05$) GO terms for each ontology and tissue type}
-  \label{fig:go}
-\end{figure}
-
-% \section*{Discussion}
-
-% \section*{Acknowledgements}
 
 \clearpage
+%figures
 
-\singlespacing
-\bibliographystyle{spbasic}
-\bibliography{refs}
+\begin{figure}[t]
+  \centering
+  \includegraphics[height=8.5in,keepaspectratio]{go_full_combined_10}
+  \caption{Top 10 Significantly enriched ($p < 0.05$) GO terms for each ontology.}
+  \label{fig:go_tissue}
+\end{figure}
 
-% \clearpage
-% %tables
 
-% \clearpage
-% %figures
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\textwidth]{go_full_10}
+  \caption{Top 10 Significantly enriched ($p < 0.05$) GO terms for each ontology and tissue type.}
+  \label{fig:go_tissue}
+\end{figure}
+
 
 % \clearpage
 
