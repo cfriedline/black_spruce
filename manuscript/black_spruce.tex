@@ -80,7 +80,9 @@ The assembled unigenes were aligned to a local copy of the nr database
 keeping, at most, the top 10 hits with an e-value cutoff of
 $e^{-5}$. The resulting alignment XML files were filtered using
 BioPython \citep[v.\ 1.6.4]{citeulike:4202607} to include all hits
-which were at least 50\% of both unigene length and identity. These
+which were at least 50\% of both unigene length and identity as well 
+as only those hits which aligned to a sequence assigned to the 
+NCBI taxonomic division, ``Plant''. These
 filtered BLAST results were imported into Blast2GO Pro \citep[v.\
 2.7.2, bg2\_may14]{citeulike:2733895} for functional annotation.
 Annotations were assigned using default parameters for the annotation
