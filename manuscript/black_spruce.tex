@@ -1,7 +1,6 @@
 \documentclass[11pt]{article}
 \pdfoutput=1
 \usepackage{simplemargins}
-\usepackage{url}
 \usepackage[pdftex]{graphicx}
 \usepackage{setspace}
 \graphicspath{{figures/}}
@@ -16,7 +15,9 @@
 \usepackage{booktabs}
 \usepackage{pdflscape}
 \usepackage{tabularx}
-\usepackage[colorlinks=false,breaklinks]{hyperref}
+\usepackage[colorlinks=false]{hyperref}
+\usepackage[anythingbreaks]{breakurl}
+
 \listfiles
 
 % make subfigure labels capitalized
@@ -78,7 +79,7 @@ The assembled unigenes were aligned to a local copy of the nr database
 keeping, at most, the top 10 hits with an e-value cutoff of
 $e^{-5}$. The resulting alignment XML file were filtered using
 BioPython \citep[v.\ 1.6.4]{citeulike:4202607} to include only the top
-HSPs (i.e., alignments) which were at least 50\% of both unigene
+HSPs (i.e., alignments) which were at least 30\% of both unigene
 length and identity as well as only those hits which aligned to a
 sequence assigned to the NCBI taxonomic division, ``Plants''. These
 filtered BLAST results were imported into Blast2GO Pro \citep[v.\
@@ -121,7 +122,7 @@ using Fisher's exact test.
 All relevant code for both the analysis and manuscript can be found at
 \url{http://www.github.com/cfriedline/black_spruce}.  The data files can 
 be accessed from the iPlant Data Store at 
-\url{https://de.iplantcollaborative.org/de/?type=data&folder=/iplant/home/cfriedline/pub_data/black_spruce}
+\url{https://de.iplantc.org/de/?type=data&folder=/iplant/home/cfriedline/pub_data/black_spruce}
 
 \section*{Results}
 
