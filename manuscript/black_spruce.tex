@@ -93,8 +93,10 @@ evidence code weights. The full suite of InterPro
 with a valid BLAST result and these results were merged with the GO
 annotations.  These annotations were augmented with ANNEX
 \citep{annex} and mapped to enzyme codes and KEGG
-\citep{citeulike:9172127} pathways. The resulting GO annotations were
-then exported to a text file for further analysis.
+\citep{citeulike:9172127} pathways. The resulting annotations were
+then exported to a text file for further analysis. Finally, for those
+unigenes without GO annotations directly from Blast2GO, GO terms were
+added post-hoc using the mappings from InterPro-GO associations.
 
 Differential gene (unigene) expression (DGE) was computed in R
 \citep[v. 3.1.1]{R} using RSEM
