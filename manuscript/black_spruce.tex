@@ -17,7 +17,7 @@
 \usepackage{tabularx}
 \usepackage[colorlinks=false]{hyperref}
 \usepackage[anythingbreaks]{breakurl}
-
+\usepackage{longtable}
 \listfiles
 
 % make subfigure labels capitalized
@@ -233,6 +233,16 @@ of their lengths. BLASTX hits are the filtered hits per library of the assembled
 \clearpage
 %figures
 
+
+%\clearpage
+
+\beginsupplement
+
+\section*{Supplementary material}
+
+% %put supplementary figures and tables below here
+\subsection*{Supplementary Figures}\label{ss:supp-fig}
+
 \begin{figure}[t]
   \centering
   \includegraphics[height=8.5in,keepaspectratio]{go_full_combined_20}
@@ -251,16 +261,23 @@ of their lengths. BLASTX hits are the filtered hits per library of the assembled
     terms for each ontology is shown in parentheses}
   \label{fig:go_tissue}
 \end{figure}
+ 
+\clearpage
 
+\subsection*{Supplementary Tables}\label{ss:supp-tab}
 
-% \clearpage
-
-% \beginsupplement
-
-% \section*{Supplementary material}
-
-% %put supplementary figures and tables below here
-% \subsection*{Supplementary Text}\label{ss:supp}
+\newdimen\LTcapwidth \LTcapwidth=\textwidth
+\input{go_cambium_BP_formatted}  
+\clearpage
+\input{go_cambium_MF_formatted}
+\clearpage
+\input{go_cambium_CC_formatted}
+\clearpage
+\input{go_needle_BP_formatted}  
+\clearpage
+\input{go_needle_MF_formatted}
+\clearpage
+\input{go_needle_CC_formatted}
 
 
 \end{document}
