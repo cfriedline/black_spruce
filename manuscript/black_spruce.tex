@@ -18,6 +18,7 @@
 \usepackage[colorlinks=false]{hyperref}
 \usepackage[anythingbreaks]{breakurl}
 \usepackage{longtable}
+\usepackage[tableposition=top]{caption}
 \listfiles
 
 % make subfigure labels capitalized
@@ -34,6 +35,8 @@
      }
 
 \begin{document}
+\newdimen\LTcapwidth \LTcapwidth=\textwidth
+
 
 % title must be 150 characters or less
 % \begin{flushleft} 
@@ -135,18 +138,18 @@ were trimmed and 58 were removed from the dataset, either by mapping
 to \textit{E. coli} (34), low complexity (1), or length/shortq (23).
 Assembly resulted in 1945 unigenes with an average coverage of
 $\approx{3}$ ESTs ($\pm \approx{10}, range=[1,274]$). After mapping 
-with Blast2GO, 1061 unigenes had some level of associated GO annotations, 
-ranging from 1 to 62 ($mean \approx{5} \pm \approx{5}$).
+with Blast2GO, XXX unigenes had some level of associated GO annotations, 
+ranging from 1 to XX ($mean XX \pm XX$).
 
-DGE was evaluated for 169 unigenes (transcripts) and 35 of these were
-reported as significant at $FDR = 0.05$ (Table \ref{tab:dge_go}). As an additional check,
+DGE was evaluated for XX unigenes (transcripts) and XX of these were
+reported as significant at $FDR = 0.05$ (Table XX). As an additional check,
 convergence of the EBTest procedure was confirmed by examining the
 parameters Alpha, Beta, and P individually These values converged at
 33, 32, and 32 generations, respectively, providing confidence in the
 estimates for differential expression.
 
-Of the 1061 unigenes with GO annotations, 848 were usable by the 
-topGO enrichment tests, and these results are summarized in Table 
+Of the XX unigenes with GO annotations, XX were usable by the 
+topGO enrichment tests, and these results are summarized in Table XX
 
 
 % \section*{Discussion}
@@ -160,81 +163,37 @@ topGO enrichment tests, and these results are summarized in Table
 \bibliography{refs}
 
 \clearpage
+%figures
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[height=8.5in,keepaspectratio]{go_full_combined_20_bh}
+  \caption{Top 20 Significantly enriched ($q < 0.05$) GO terms for
+    each ontology. The total number of significant terms for each
+    ontology is shown in parentheses.}
+  \label{fig:go_combined}
+\end{figure}
+
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\textwidth]{go_full_20_bh}
+  \caption{Top 20 Significantly enriched ($q < 0.05$) GO terms for
+    each ontology and tissue type. The total number of significant
+    terms for each ontology is shown in parentheses}
+  \label{fig:go_tissue}
+\end{figure}
+
+
+
 %tables
 
-\begin{table}[t]
-\centering
-\begin{tabularx}{\textwidth}{lXcc}
-\toprule 
-Unigene & GO terms & Tissue & DGE \\ \midrule
-UN0050 & GO:0046872 &  C   & C \\
-UN0084 & GO:0004478, GO:0006555, GO:0009651, GO:0009809, GO:0005618, GO:0005730, GO:0005829, GO:0006730, GO:0046872, GO:0006556, GO:0046686, GO:0009409, GO:0009506, GO:0005886, GO:0005524, GO:0071281 & B   & N \\
-UN0214 & GO:0006950, GO:0009415 &  C   & C \\
-UN0225 & GO:0009507   &  B   & N \\
-UN0243 & GO:0016984, GO:0004497, GO:0009853, GO:0055114, GO:0009507, GO:0015979, GO:0015977  & N   & N \\
-UN0268 & GO:0016984, GO:0004497, GO:0009853, GO:0055114, GO:0009507, GO:0015979, GO:0015977 & N   & N \\
-UN0283 & GO:0055114, GO:0008794 & C   & C \\
-UN0285 & GO:0016491, GO:0009055, GO:0000287, GO:0018298, GO:0016168, GO:0051539, GO:0016021, GO:0009522, GO:0015979, GO:0009535, GO:0055114  & N   & N \\
-UN0290 & GO:0009507   & N   & N \\
-UN0293 & GO:0009507  & B   & N \\
-UN0306 & GO:0009512 & B   & N \\
-UN0311 & GO:0055114, GO:0008794  & C   & C \\
-UN0312 & GO:0055114, GO:0008794 & C   & C \\
-UN0326 & GO:0019253, GO:0016984, GO:0004497, GO:0009853, GO:0009507, GO:0055114 & N   & N \\
-UN0328 & GO:0020037, GO:0016705, GO:0005506, GO:0055114 & C   & C \\
-UN0340 & GO:0005524, GO:0009570 & N   & N \\
-UN0350 & GO:0006950, GO:0009415 & C   & C \\
-UN0354 & GO:0046872 & C   & C \\
-UN0357 & GO:0046872 &  C   & C \\
-UN0361 & GO:0016984, GO:0004497, GO:0009853, GO:0055114, GO:0009507, GO:0015979, GO:0015977 & N   & N \\
-UN0362 & GO:0004568, GO:0005975, GO:0006032, GO:0008061, GO:0016998 & C   & C \\
-UN0638 & GO:0006950, GO:0009415 & C & C \\ 
-\bottomrule
-\end{tabularx}
+\input{est_table}
 
-\caption{Unigenes exhibiting differential expression across tissues (C = cambium, N = needle, 
-B = both needle and cambium) and associated GO terms. The Tissue column represents presence of 
-that unigene ($>2$) ESTs in the tissue, and DGE represents the tissue in which the unigene was 
-differentially expressed.}
-\label{tab:dge_go}
-\end{table}
-
-
-\begin{table}[t]
-  \centering
-  \begin{tabular}{llrrrr}
-    \toprule
-    Sample & Tissue & Reads & Assembled reads & Length & BLASTX hits \\
-    \midrule
-    \bottomrule
-
-  \end{tabular}
-  \label{tab:est}
-  \caption{EST summary information. Reads are the number of ESTs that were combined pre-assembly, 
-Assembled reads are the numbers of reads present in the resulting assembly along with the distribution 
-of their lengths. BLASTX hits are the filtered hits per library of the assembled unigene against nr.}
-  
-\end{table}
-
-% \begin{table}[t]
-% \centering
-% \begin{tabular}{lrrr}
-% \toprule
-% Tissue  & \multicolumn{3}{c}{Ontology} \\ \cmidrule(l){2-4}
-%         & BP       & CC      & MP      \\ \midrule
-% Cambium & 143      & 95      & 164     \\
-% Needle  & 205      & 186     & 204     \\ \bottomrule
-% \end{tabular}
-% \caption{Number of GO terms enriched for each tissue for each ontology.}
-% \label{tab:dge}
-% \end{table}
+\input{dge_table_mod}
 
 
 \clearpage
-%figures
-
-
-%\clearpage
 
 \beginsupplement
 
@@ -266,7 +225,6 @@ of their lengths. BLASTX hits are the filtered hits per library of the assembled
 
 \subsection*{Supplementary Tables}\label{ss:supp-tab}
 
-\newdimen\LTcapwidth \LTcapwidth=\textwidth
 \input{go_cambium_BP_formatted}  
 \clearpage
 \input{go_cambium_MF_formatted}
