@@ -115,12 +115,16 @@ library size using median normalization), considering all unigenes
 ($Qtrm=1$) to which at least five cleaned ESTs mapped
 ($QtrmCut=5$). Multiple testing was controlled by FDR
 \citep{benjamini1995controlling} at 0.05 using
-\texttt{rsem-control-fdr}.  The count matrix used for DGE, in concert
+\texttt{rsem-control-fdr}.  As an additional check, convergence of the
+EBTest procedure was confirmed by examining the parameters Alpha,
+Beta, and P individually.  These values converged at 33, 32, and 32
+generations, respectively, providing confidence in the estimates for
+differential expression. The count matrix used for DGE, in concert
 with the exported annotations from Blast2GO was also used to compute
 GO enrichment for each ontology (i.e., BP, CC, MF), using topGO
 \citep{topgo}, by tissue type, for nodes in the GO ontologies
-containing at least 5 genes.  Tests for enrichment in GO were computed
-using Fisher's exact test.
+containing at least 5 genes.  Tests for enrichment in GO terms 
+were computed using Fisher's exact test and controlled using FDR.
 
 All relevant code for both the analysis and manuscript can be found at
 \url{http://www.github.com/cfriedline/black_spruce}.  The data files can 
@@ -137,19 +141,24 @@ analysis.  After processing with Seqclean, 5938 ESTs remained; 2842
 were trimmed and 58 were removed from the dataset, either by mapping
 to \textit{E. coli} (34), low complexity (1), or length/shortq (23).
 Assembly resulted in 1945 unigenes with an average coverage of
-$\approx{3}$ ESTs ($\pm \approx{10}, range=[1,274]$). After mapping 
-with Blast2GO, XXX unigenes had some level of associated GO annotations, 
-ranging from 1 to XX ($mean XX \pm XX$).
+$\approx{3}$ ESTs ($\pm \approx{10}, range=[1,274]$). The EST assbemly 
+is summarized in Table \ref{tab:est}.
 
-DGE was evaluated for XX unigenes (transcripts) and XX of these were
-reported as significant at $FDR = 0.05$ (Table XX). As an additional check,
-convergence of the EBTest procedure was confirmed by examining the
-parameters Alpha, Beta, and P individually These values converged at
-33, 32, and 32 generations, respectively, providing confidence in the
-estimates for differential expression.
+DGE was evaluated for 169 unigenes (transcripts) meeting the cutoff
+and 35 of these were reported as significant at FDR = 0.05.  In
+cambium, 23 of these unigenes were differentially expressed as were 12
+in the needle tissue.  The BP annotations for these unigenes are
+outlined in Table \ref{tab:dge_bp}.
 
-Of the XX unigenes with GO annotations, XX were usable by the 
-topGO enrichment tests, and these results are summarized in Table XX
+There were 933 unigenes ($\sim 48\%$) with GO annotations (mean=$6 \pm
+5$ annotations/unigene, range=[1, 44]). Of these unigenes with GO
+annotations, 767, 600, 800 were usable by the topGO enrichment tests
+for the BP, CC, and MF ontologies, respectively.  The top 20 terms for
+each ontology which were signficantly ($q < 0.05$) enriched for each
+ontology are displayed in Figure \ref{fig:go_full_combined_20_bh}.  In
+addition to the overall summarization of the significantly enriched GO
+terms, Figure \ref{fig:go_full_20_bh} shows the top 20 terms (at most) 
+which were signficantly enriched, by tissue type.
 
 
 % \section*{Discussion}
@@ -171,7 +180,7 @@ topGO enrichment tests, and these results are summarized in Table XX
   \caption{Top 20 Significantly enriched ($q < 0.05$) GO terms for
     each ontology. The total number of significant terms for each
     ontology is shown in parentheses.}
-  \label{fig:go_combined}
+  \label{fig:go_full_combined_20_bh}
 \end{figure}
 
 
@@ -180,8 +189,8 @@ topGO enrichment tests, and these results are summarized in Table XX
   \includegraphics[width=\textwidth]{go_full_20_bh}
   \caption{Top 20 Significantly enriched ($q < 0.05$) GO terms for
     each ontology and tissue type. The total number of significant
-    terms for each ontology is shown in parentheses}
-  \label{fig:go_tissue}
+    terms for each ontology and tissue type is shown in parentheses}
+  \label{fig:go_full_20_bh}
 \end{figure}
 
 
@@ -190,7 +199,7 @@ topGO enrichment tests, and these results are summarized in Table XX
 
 \input{est_table}
 
-\input{dge_table_mod}
+\input{dge_bp_mod}
 
 
 \clearpage
@@ -217,7 +226,7 @@ topGO enrichment tests, and these results are summarized in Table XX
   \includegraphics[width=\textwidth]{go_full_20}
   \caption{Top 20 Significantly enriched ($p < 0.05$) GO terms for
     each ontology and tissue type. The total number of significant
-    terms for each ontology is shown in parentheses}
+    terms for each ontology and tissue type is shown in parentheses}
   \label{fig:go_tissue}
 \end{figure}
  
