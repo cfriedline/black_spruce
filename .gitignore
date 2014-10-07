@@ -22,3 +22,4 @@ interpro
 .RData
 .Rhistory
 *.svg
+*.bgr
