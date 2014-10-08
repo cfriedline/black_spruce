@@ -24,3 +24,4 @@ interpro
 *.svg
 *.bgr
 *.Rdata
+*.sqlite
