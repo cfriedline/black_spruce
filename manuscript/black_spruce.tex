@@ -145,10 +145,12 @@ $\approx{3}$ ESTs ($\pm \approx{10}, range=[1,274]$). The EST assbemly
 is summarized in Table \ref{tab:est}.
 
 DGE was evaluated for 169 unigenes (transcripts) meeting the cutoff
-and 35 of these were reported as significant at FDR = 0.05.  In
-cambium, 23 of these unigenes were differentially expressed as were 12
-in the needle tissue.  The BP annotations for these unigenes are
-outlined in Table \ref{tab:dge_bp}.
+and 35 of these were reported as significant at FDR = 0.05 (Figure
+\ref{fig:unigene_venn}).  In cambium, 23 of these unigenes were
+differentially expressed as were 12 in the needle tissue, though while
+20 unigenes were uniquely expressed in cambium, there were none
+uniquely expressed in the needles.  The BP annotations for these
+unigenes are outlined in Table \ref{tab:dge_bp}.
 
 There were 933 unigenes ($\sim 48\%$) with GO annotations (mean=$6 \pm
 5$ annotations/unigene, range=[1, 44]). Of these unigenes with GO
@@ -176,6 +178,18 @@ which were signficantly enriched, by tissue type.
 
 \begin{figure}[t]
   \centering
+  \includegraphics[width=\textwidth,keepaspectratio]{unigene_venn.pdf}
+  \caption{Number expressed unigenes (top) across tissues as well as
+    differential expression patterns (bottom). Of the 15 shared
+    differnetially expressed genes, 3 were differntial in cambium and
+    12 were differntially expressed in needle.}
+  \label{fig:go_venn}
+\end{figure}
+
+
+
+\begin{figure}[t]
+  \centering
   \includegraphics[height=8.5in,keepaspectratio]{go_full_combined_20_bh}
   \caption{Top 20 Significantly enriched ($q < 0.05$) GO terms for
     each ontology. The total number of significant terms for each
@@ -193,7 +207,7 @@ which were signficantly enriched, by tissue type.
   \label{fig:go_full_20_bh}
 \end{figure}
 
-
+\clearpage
 
 %tables
 
