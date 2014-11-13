@@ -100,35 +100,44 @@ annotations.  These annotations were augmented with ANNEX
 then exported to a text file for further analysis. 
 
 Differential gene (unigene) expression (DGE) was computed in R
-\citep[v. 3.1.1]{R} using RSEM
-\citep[v. 1.2.15]{Li:BmcBioinformatics:2011} in the standard way using
-bowtie \citep[v. 2.2.3]{Langmead:NatMethods:2012} by first creating a
-reference (\texttt{rsem-prepare-reference}) and then the computing the
-expression on both a parent-wise and tissue-wise basis
-(\texttt{rsem-calculate-expression}). Models were evaluated using
-\texttt{rsem-plot-model} and the parent-wise gene results were
-combined for further analysis
-(\texttt{rsem-generate-data-matrix}). The resulting data matrix was
-used in an EBSeq \citep{Leng:Bioinformatics:2013} pipeline to compute
-differential gene expression (50 rounds, accounting for differences in
-library size using median normalization), considering all unigenes
-($Qtrm=1$) to which at least five cleaned ESTs mapped
-($QtrmCut=5$). Multiple testing was controlled by FDR
-\citep{benjamini1995controlling} at 0.05 using
-\texttt{rsem-control-fdr}.  As an additional check, convergence of the
-EBTest procedure was confirmed by examining the parameters Alpha,
-Beta, and P individually.  These values converged at 33, 32, and 32
-generations, respectively, providing confidence in the estimates for
-differential expression. The count matrix used for DGE, in concert
-with the exported annotations from Blast2GO was also used to compute
-GO enrichment for each ontology (i.e., BP, CC, MF), using topGO
-\citep{topgo}, by tissue type, for nodes in the GO ontologies
-containing at least 5 genes.  Tests for enrichment in GO terms 
-were computed using Fisher's exact test and controlled using FDR.
+\citep[v. 3.1.1]{R} using RSEM (RNA-Seq by Expectation-Maximization)
+\citep[v. 1.2.15]{Li:BmcBioinformatics:2011}, a software package for estimating
+gene expression levels from sequence data.  The input to the RSEM pipeline was a
+multi-FASTA file of assembled unigenes.  Bowtie indices
+\citep[v. 2.2.3]{Langmead:NatMethods:2012} against these files were built as
+part of the data preparation process.  For each individual (e.g., P32 and P40)
+and for each tissue (e.g., cambium and needle, combined by parent), the gene
+expression levels were calculated. In all cases, the models were evaluated using
+the built-in RSEM diagnostics.  The RSEM procedure resulted in a unigene
+$\times$ individual matrix, where the vales represented the calculated
+expression level of the unigene in the individual.  This data matrix was used as
+an input to EBSeq \citep[v. 1.4.0]{Leng:Bioinformatics:2013}, an R package
+designed to identify differentially expressed genes across biological replicates
+in a gene expression study. The data were first median-normalized
+(\texttt{MedianNorm}).  From these normalized data, we performed 50 iterations
+of the \texttt{EBTest} method, which uses an EM algorithm to compute the
+posterior probabilities of a unigene being differentially expressed across
+tissue types. Unigenes in the dataset that were considered as candidates for
+differential expression were required to have an expression level of at least
+5.0.  This was controlled by the \texttt{QtrmCut} and \texttt{Qtrim} parameters
+of EBTest which removes unigenes from the dataset that do not satisfy the
+condition $\text{Qtrim}^{\text{th}} \text{quanitile} <= \text{QtrmCut}$.  As
+such, the \texttt{Qtrim} and \texttt{QtrmCut} were set to 1.0 and 5.0,
+respectively.  Multiple test correction was done using FDR
+\citep{benjamini1995controlling} and posterior convergence was diagnosed
+manually by examining the individual Alpha, Beta, and P values returned from
+test procedure.  These values converged at 33, 32, and 32 generations,
+respectively, providing confidence in the estimates for differential expression.
+The count matrix used for DGE, in concert with the exported annotations from
+Blast2GO was also used to compute GO enrichment for each ontology (i.e., BP, CC,
+MF), using topGO \citep{topgo}, by tissue type, for nodes in the GO ontologies
+containing at least 5 genes.  Tests for enrichment in GO terms were computed
+using Fisher's exact test and controlled using FDR.
 
-All relevant code for both the analysis and manuscript can be found at
-\url{http://www.github.com/cfriedline/black_spruce}.  Raw data files
-can be accessed from the iPlant Data Store at
+All relevant code, including R scripts and IPython notebooks, for both the
+analysis and manuscript can be found at
+\url{http://www.github.com/cfriedline/black_spruce}.  Raw data files can be
+accessed from the iPlant Data Store at
 \url{https://de.iplantc.org/de/?type=data&folder=/iplant/home/cfriedline/pub_data/black_spruce}
 and the quality-controlled ESTs can be found in NCBI dbEST under accessions
 XXX--XXX.
@@ -146,13 +155,16 @@ Assembly resulted in 1945 unigenes with an average coverage of
 $\approx{3}$ ESTs ($\pm \approx{10}, range=[1,274]$). The EST assbemly 
 is summarized in Table \ref{tab:est}.
 
-DGE was evaluated for 169 unigenes (transcripts) meeting the cutoff
-and 35 of these were reported as significant at FDR = 0.05 (Figure
-\ref{fig:unigene_venn}).  In cambium, 23 of these unigenes were
-differentially expressed as were 12 in the needle tissue, though while
-20 unigenes were uniquely expressed in cambium, there were none
-uniquely expressed in the needles.  The BP annotations for these
-unigenes are outlined in Table \ref{tab:dge_bp}.
+We consider unigenes to be expressed if their estimated level of expression was
+at least 2.0 across replicates.  We find 255 unigenes exclusively expressed in
+cambium, 123 exclusive to needle, and 57 unigenes expressed in both tissues. DGE
+was evaluated for 169 unigenes (transcripts) meeting the defined expression
+cutoffs for EBSeq, and 35 of these were reported as significant at FDR = 0.05
+(Figure \ref{fig:unigene_venn}).  In cambium, 23 of these unigenes were
+differentially expressed as were 12 in the needle tissue, though while 20
+unigenes were uniquely expressed in cambium, there were none uniquely expressed
+in the needles.  The BP annotations for these unigenes are outlined in Table
+\ref{tab:dge_bp}.
 
 There were 933 unigenes ($\sim 48\%$) with GO annotations (mean=$6 \pm
 5$ annotations/unigene, range=[1, 44]). Of these unigenes with GO
@@ -181,10 +193,15 @@ which were signficantly enriched, by tissue type.
 \begin{figure}[t]
   \centering
   \includegraphics[width=\textwidth,keepaspectratio]{unigene_venn.pdf}
-  \caption{Number expressed unigenes (top) across tissues as well as
-    differential expression patterns (bottom). Of the 15 shared
-    differnetially expressed genes, 3 were differntial in cambium and
-    12 were differntially expressed in needle.}
+  \caption{Top: the raw number of expressed unigenes across tissues.  The count
+    represents the number of unigenes with expression levels (from RSEM) of at
+    least 2.0 in either a single tissue type or across both tissue types.
+    Bottom: The patterns of differential expression by tissue.  The count
+    represents the number of differentially expressed genes that were found in a
+    specific tissue or across both.  Note that the 0 for needle indicates that
+    there were no differentially expressed unigenes found exclusively in needle
+    tissue and not that there were 0 differentially expressed unigenes in
+    needle.}
   \label{fig:go_venn}
 \end{figure}
 
