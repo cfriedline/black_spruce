@@ -28,3 +28,5 @@ interpro
 *.png
 _region_.tex
 Z4006*
+*.txt
+*~
