@@ -2,3 +2,7 @@
     clean = cat
     smudge = cat
     required
+
+[diff "pandoc"]
+  textconv=pandoc --to=markdown
+  prompt = false
