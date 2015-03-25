@@ -12,19 +12,22 @@ git filter driver
 """
 import sys
 
-from IPython.nbformat import current
+#You may need to do this for your script to work with GitX or Tower:
+#sys.path.append("/Users/chris/anaconda/envs/conda/lib/python2.7/site-packages")
+
+from IPython.nbformat import v4
 
 def strip_output(nb):
     """strip the outputs from a notebook object"""
-    for cell in nb.worksheets[0].cells:
+    for cell in nb.cells:
         if 'outputs' in cell:
             cell['outputs'] = []
-        if 'prompt_number' in cell:
-            cell['prompt_number'] = ""
+        if 'execution_count' in cell:
+            cell['execution_count'] = u"0"
     return nb
 
 if __name__ == '__main__':
-    nb = current.read(sys.stdin, 'json')
+    nb = v4.reads(sys.stdin.read())
     nb = strip_output(nb)
-    current.write(nb, sys.stdout, 'json')
+    sys.stdout.write(v4.writes(nb))
 
