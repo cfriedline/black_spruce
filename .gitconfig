@@ -1,0 +1,4 @@
+[filter "nbstrip"]
+    clean = /Users/chris/bin/nbstripout
+    smudge = cat
+    required
