@@ -36,3 +36,10 @@ Z4006*
 *.gff
 *.ai
 *.xlsx
+*.xls
+*.sqn
+*.wego
+*.gostat
+*.genespring
+*.custom
+seqtrim
