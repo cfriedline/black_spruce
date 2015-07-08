@@ -1,0 +1,99 @@
+Submit-block ::= {
+  contact {
+    contact {
+      name
+        name {
+          last "Rajora" ,
+          first "Om" ,
+          initials "O.P." } ,
+      affil
+        std {
+          affil "University of New Brunswick" ,
+          div "Forestry and Environmental Science" ,
+          city "Fredericton" ,
+          sub "NB" ,
+          country "Canada" ,
+          street "PO Box 44555 28 Dineen Drive" ,
+          email "om.rajora@unb.ca" ,
+          fax "506-453-3538" ,
+          phone "506-453-4501" ,
+          postal-code "E3B 6C2" } } } ,
+  cit {
+    authors {
+      names
+        std {
+          {
+            name
+              name {
+                last "Mann" ,
+                first "Ishminder" ,
+                initials "I.K." } } ,
+          {
+            name
+              name {
+                last "Friedline" ,
+                first "Christopher" ,
+                initials "C.J." } } ,
+          {
+            name
+              name {
+                last "Rajora" ,
+                first "Om" ,
+                initials "O.P." } } } ,
+      affil
+        std {
+          affil "University of New Brunswick" ,
+          div "Forestry and Environmental Science" ,
+          city "Fredericton" ,
+          sub "NB" ,
+          country "Canada" ,
+          street "PO Box 44555 28 Dineen Drive" ,
+          postal-code "E3B 6C2" } } ,
+    date
+      std {
+        year 2015 ,
+        month 6 ,
+        day 25 } } ,
+  hup TRUE ,
+  reldate
+    std {
+      year 2016 ,
+      month 6 ,
+      day 30 } ,
+  subtype new }
+Seqdesc ::= pub {
+  pub {
+    gen {
+      cit "unpublished" ,
+      authors {
+        names
+          std {
+            {
+              name
+                name {
+                  last "Mann" ,
+                  first "Ishminder" ,
+                  initials "I.K." } } ,
+            {
+              name
+                name {
+                  last "Friedline" ,
+                  first "Christopher" ,
+                  initials "C.J." } } ,
+            {
+              name
+                name {
+                  last "Rajora" ,
+                  first "Om" ,
+                  initials "O.P." } } } ,
+        affil
+          std {
+            affil "University of New Brunswick" ,
+            div "Forestry and Environmental Science" ,
+            city "Fredericton" ,
+            sub "NB" ,
+            country "Canada" ,
+            street "PO Box 44555 28 Dineen Drive" ,
+            postal-code "E3B 6C2" } } ,
+      title "Transcriptome Profiling of Needle versus Cambium Tissues by EST
+ Analysis of Subtracted cDNA Libraries in Black Spruce (Picea mariana)" } } }
